@@ -33,6 +33,3 @@ RUN docker-php-ext-install pdo_mysql
 # Activate Apache modules
 #RUN a2enmod <module_name>
 #RUN service apache2 restart
-
-# Set the workdir
-WORKDIR /var/www/docker-lamp-php-5
