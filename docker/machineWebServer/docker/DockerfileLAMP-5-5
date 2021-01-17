@@ -1,33 +1,25 @@
 
-#FROM php:5.5-apache
+FROM php:5.5-apache
 #FROM cespi/php-5.3:apacye
 #FROM php:5.4-apache
-FROM php:5.3-apache
+#FROM php:5.3-apache
 
-# Install certificate
-RUN gpg --recv-keys 7638D0442B90D010
-RUN gpg --recv-keys 9D6D8F6BC857C906
-RUN gpg --recv-keys AA8E81B4331F7F50
-RUN gpg --export 9D6D8F6BC857C906 | apt-key add -
-RUN gpg --export AA8E81B4331F7F50 | apt-key add -
-RUN gpg --export 7638D0442B90D010 | apt-key add -
 # Install PHP extension dependencies (if any)
-RUN apt-get update && apt-get -y --no-install-recommends install php5-imap cron nano locate
+#RUN apt-get update \
+#    && apt-get -y --no-install-recommends install <package_name>
 
 # Copy PHP configuration
 # Edit docker/php.ini and customize it to your needs
-#COPY docker/php.ini /usr/local/etc/php/php.ini
-COPY docker/php.ini /usr/local/lib/php/php.ini
+COPY docker/php.ini /usr/local/etc/php/php.ini
 
 # Copy custom command docker-php-pecl-install
 COPY docker/docker-php-pecl-install /usr/local/bin/
-# Add Crontabs
-# *     *     *     *     *     /var/www/webserver/vtigercrm/cron/modules/com_vtiger_workflow/com_vtiger_workflow.sh
+
 # Install PHP extensions
-#RUN docker-php-ext-install mysql
-#RUN docker-php-ext-install mysqli
-#RUN docker-php-ext-install pdo
-#RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install mysql
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo_mysql
 
 # Install PECL extensions
 #RUN docker-php-pecl-install <package_name-version> (versions available in PECL repository allowed)

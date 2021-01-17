@@ -13,10 +13,11 @@ services:
     ports:
       - 8306:3306
     volumes:
-      - /var/machine/database:/var/lib/mysql/
+      - /var/machine/database:/var/lib/mysql
+      - /var/machine/backups:/backups
     networks:
       rests_net:
-        ipv4_address: 169.10.0.2
+        ipv4_address: 192.10.0.3
 
 networks:
   rests_net:

@@ -5,22 +5,21 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    container_name: server
+    container_name: server-apache2
+    working_dir: /var/www/webserver
     ports:
-      - 8080:80
+      - 80:80
     volumes:
-      - .:/var/www/docker-lamp-php-5
-      - ./logs/apache2:/var/log/apache2
+      - /var/machine/code/php:/var/www/webserver
+      - /var/machine/logs/apache2:/var/log/apache2
+      - /var/machine/config/apache2/apache2.conf:/etc/apache2/apache2.conf
+      - /var/machine/config/apache2/sites-available/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      #- /var/machine/config/apache2/sites-available/vtigersand.conf:/etc/apache2/sites-available/vtigersand.conf
 
-  db:
-    image: mysql:5.5
-    container_name: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=some_password
-      - MYSQL_DATABASE=some_db
-      - MYSQL_USER=some_user
-      - MYSQL_PASSWORD=some_password
-    ports:
-      - 8306:3306
-    volumes:
-      - /var/lib/mysql/some_db:/var/lib/mysql/some_db
+    networks:
+      rests_net:
+        ipv4_address: 192.10.0.2
+networks:
+  rests_net:
+    external:
+      name: machinelan_rests_net
