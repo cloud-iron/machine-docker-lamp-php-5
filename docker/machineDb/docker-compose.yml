@@ -5,11 +5,11 @@ services:
     image: mysql:5.5
     container_name: mysql
     environment:
-      - MYSQL_DATABASE: 'test_db'
-      - MYSQL_USER: 'nassim'
-      - MYSQL_PASSWORD: 'nassim1022309'
-      - MYSQL_ROOT_PASSWORD: '123456'
-      - VIRTUAL_HOST: mysql.localhost
+       MYSQL_DATABASE: 'test_db'
+       MYSQL_USER: 'nassim'
+       MYSQL_PASSWORD: 'nassim1022309'
+       MYSQL_ROOT_PASSWORD: '123456'
+       VIRTUAL_HOST: mysql.localhost
     ports:
       - 8306:3306
     volumes:
@@ -17,3 +17,8 @@ services:
     networks:
       rests_net:
         ipv4_address: 169.10.0.2
+
+networks:
+  rests_net:
+    external:
+      name: machinelan_rests_net
